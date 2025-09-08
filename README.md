@@ -4,4 +4,4 @@ The goal of this project is to build an AI agent that leverages memory, web brow
 
 ## Quantitative
 
-* Minimize hallucination by checking with FactScore. Since we need the LLM to have claims that can be backed up with evidence, it is important to check how much the agent is hallucinating.
+* Compare results with baseline LLM performance, should see significant improvement
