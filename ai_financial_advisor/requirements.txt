@@ -1,0 +1,7 @@
+crewai
+crewai[tools]
+pandas
+numpy
+matplotlib
+python-dotenv
+requests
