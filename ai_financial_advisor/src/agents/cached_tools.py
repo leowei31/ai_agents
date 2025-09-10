@@ -6,6 +6,7 @@ import json
 import os
 import pandas as pd
 from datetime import datetime, timedelta
+from typing import Optional
 from crewai.tools import tool
 from ..utils.data_utils import read_prices
 from ..analysis.indicators import compute_all_indicators
@@ -159,7 +160,7 @@ def fetch_ohlcv_cached(ticker: str, period: str = '6mo', interval: str = '1d') -
 
 
 @tool("Fetch recent news (cached/historical)")
-def fetch_news_cached(ticker: str, limit: int = 10, target_date: str = None) -> str:
+def fetch_news_cached(ticker: str, limit: int = 10, target_date: Optional[str] = None) -> str:
     """
     Fetch news using cached historical data (no API calls).
     If target_date is provided, returns news around that date.

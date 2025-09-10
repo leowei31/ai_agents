@@ -30,12 +30,17 @@ def fetch_ohlcv(ticker: str, period: str = '6mo', interval: str = '1d') -> str:
 @tool("Fetch recent news")
 def fetch_news(ticker: str, limit: int = 10) -> str:
     """
-    Fetch recent news using Polygon.io news endpoint.
+    Fetch recent news using Polygon.io news endpoint with retry logic.
     Returns JSON list of {title, publisher, link, time}.
     """
-    client = PolygonClient()
-    result = client.fetch_news(ticker, limit)
-    return json.dumps(result)
+    try:
+        client = PolygonClient()
+        result = client.fetch_news(ticker, limit)
+        return json.dumps(result)
+    except Exception as e:
+        print(f"⚠️  News fetch failed after all retries: {e}")
+        # Return empty list as fallback instead of crashing
+        return json.dumps([])
 
 
 @tool("Compute technical indicators")
@@ -56,9 +61,30 @@ def compute_risk(csv_path: str) -> str:
     Compute annualized volatility, max drawdown, and 1-day 95% VaR from OHLCV CSV data.
     Returns JSON with risk metrics and number of observations, plus conservative risk plan.
     """
-    df = read_prices(csv_path)
-    result = compute_risk_metrics(df)
-    return json.dumps(result)
+    try:
+        # Read CSV with retry logic
+        df = read_prices(csv_path, max_retries=3, wait_time=0.1)
+        
+        # Compute risk metrics with robust error handling
+        result = compute_risk_metrics(df)
+        
+        print(f"✅ Successfully computed risk metrics for {csv_path}")
+        return json.dumps(result)
+        
+    except FileNotFoundError as e:
+        error_msg = f"CSV file not found for risk computation: {e}"
+        print(f"❌ {error_msg}")
+        return json.dumps({"error": error_msg, "type": "file_not_found"})
+        
+    except ValueError as e:
+        error_msg = f"Invalid data for risk computation: {e}"
+        print(f"❌ {error_msg}")
+        return json.dumps({"error": error_msg, "type": "invalid_data"})
+        
+    except Exception as e:
+        error_msg = f"Unexpected error in risk computation: {e}"
+        print(f"❌ {error_msg}")
+        return json.dumps({"error": error_msg, "type": "unexpected_error"})
 
 
 @tool("Rule-based technical signal")

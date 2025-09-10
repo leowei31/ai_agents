@@ -1,0 +1,514 @@
+{
+  "initial_capital": 10000,
+  "final_portfolio_value": 16543.52,
+  "total_return_pct": 65.43520000000001,
+  "total_trades": 4,
+  "buy_hold_value": 20618.82197884959,
+  "buy_hold_return_pct": 106.18821978849591,
+  "strategy_vs_buy_hold": -40.753019788495905,
+  "weeks_tested": 52,
+  "trades": [
+    {
+      "date": "2024-10-01 00:00:00",
+      "action": "BUY",
+      "shares": 61,
+      "price": 162.69,
+      "value": 9924.09,
+      "confidence": 0.5
+    },
+    {
+      "date": "2025-03-04 00:00:00",
+      "action": "SELL",
+      "shares": 61,
+      "price": 275.15,
+      "value": 16784.149999999998,
+      "confidence": 0.8
+    },
+    {
+      "date": "2025-04-22 00:00:00",
+      "action": "BUY",
+      "shares": 49,
+      "price": 343.03,
+      "value": 16808.469999999998,
+      "confidence": 0.5
+    },
+    {
+      "date": "2025-08-19 00:00:00",
+      "action": "SELL",
+      "shares": 49,
+      "price": 336.57,
+      "value": 16491.93,
+      "confidence": 0.5
+    }
+  ],
+  "performance_history": [
+    {
+      "date": "2024-09-10 00:00:00",
+      "price": 129.64,
+      "portfolio_value": 10000.0,
+      "cash": 10000,
+      "shares": 0,
+      "action": "SELL",
+      "confidence": 0.8
+    },
+    {
+      "date": "2024-09-17 00:00:00",
+      "price": 131.27,
+      "portfolio_value": 10000.0,
+      "cash": 10000,
+      "shares": 0,
+      "action": "HOLD",
+      "confidence": 0.5
+    },
+    {
+      "date": "2024-09-24 00:00:00",
+      "price": 153.88,
+      "portfolio_value": 10000.0,
+      "cash": 10000,
+      "shares": 0,
+      "action": "SELL",
+      "confidence": 0.5
+    },
+    {
+      "date": "2024-10-01 00:00:00",
+      "price": 162.69,
+      "portfolio_value": 10000.0,
+      "cash": 75.90999999999985,
+      "shares": 61,
+      "action": "BUY",
+      "confidence": 0.5
+    },
+    {
+      "date": "2024-10-08 00:00:00",
+      "price": 192.2,
+      "portfolio_value": 11800.109999999999,
+      "cash": 75.90999999999985,
+      "shares": 61,
+      "action": "BUY",
+      "confidence": 0.5
+    },
+    {
+      "date": "2024-10-15 00:00:00",
+      "price": 194.31,
+      "portfolio_value": 11928.82,
+      "cash": 75.90999999999985,
+      "shares": 61,
+      "action": "BUY",
+      "confidence": 0.85
+    },
+    {
+      "date": "2024-10-22 00:00:00",
+      "price": 219.7,
+      "portfolio_value": 13477.609999999999,
+      "cash": 75.90999999999985,
+      "shares": 61,
+      "action": "HOLD",
+      "confidence": 0.5
+    },
+    {
+      "date": "2024-10-29 00:00:00",
+      "price": 258.24,
+      "portfolio_value": 15828.550000000001,
+      "cash": 75.90999999999985,
+      "shares": 61,
+      "action": "BUY",
+      "confidence": 0.5
+    },
+    {
+      "date": "2024-11-05 00:00:00",
+      "price": 227.8,
+      "portfolio_value": 13971.710000000001,
+      "cash": 75.90999999999985,
+      "shares": 61,
+      "action": "HOLD",
+      "confidence": 0.7
+    },
+    {
+      "date": "2024-11-12 00:00:00",
+      "price": 356.59,
+      "portfolio_value": 21827.899999999998,
+      "cash": 75.90999999999985,
+      "shares": 61,
+      "action": "HOLD",
+      "confidence": 0.5
+    },
+    {
+      "date": "2024-11-19 00:00:00",
+      "price": 430.54,
+      "portfolio_value": 26338.850000000002,
+      "cash": 75.90999999999985,
+      "shares": 61,
+      "action": "HOLD",
+      "confidence": 0.5
+    },
+    {
+      "date": "2024-11-26 00:00:00",
+      "price": 353.69,
+      "portfolio_value": 21651.0,
+      "cash": 75.90999999999985,
+      "shares": 61,
+      "action": "BUY",
+      "confidence": 0.5
+    },
+    {
+      "date": "2024-12-03 00:00:00",
+      "price": 373.43,
+      "portfolio_value": 22855.14,
+      "cash": 75.90999999999985,
+      "shares": 61,
+      "action": "HOLD",
+      "confidence": 0.5
+    },
+    {
+      "date": "2024-12-10 00:00:00",
+      "price": 377.32,
+      "portfolio_value": 23092.43,
+      "cash": 75.90999999999985,
+      "shares": 61,
+      "action": "HOLD",
+      "confidence": 0.7
+    },
+    {
+      "date": "2024-12-17 00:00:00",
+      "price": 386.42,
+      "portfolio_value": 23647.530000000002,
+      "cash": 75.90999999999985,
+      "shares": 61,
+      "action": "HOLD",
+      "confidence": 0.7
+    },
+    {
+      "date": "2024-12-24 00:00:00",
+      "price": 358.18,
+      "portfolio_value": 21924.89,
+      "cash": 75.90999999999985,
+      "shares": 61,
+      "action": "HOLD",
+      "confidence": 0.5
+    },
+    {
+      "date": "2024-12-31 00:00:00",
+      "price": 289.62,
+      "portfolio_value": 17742.73,
+      "cash": 75.90999999999985,
+      "shares": 61,
+      "action": "BUY",
+      "confidence": 0.5
+    },
+    {
+      "date": "2025-01-07 00:00:00",
+      "price": 341.425,
+      "portfolio_value": 20902.835,
+      "cash": 75.90999999999985,
+      "shares": 61,
+      "action": "BUY",
+      "confidence": 0.5
+    },
+    {
+      "date": "2025-01-14 00:00:00",
+      "price": 342.17,
+      "portfolio_value": 20948.280000000002,
+      "cash": 75.90999999999985,
+      "shares": 61,
+      "action": "HOLD",
+      "confidence": 0.7
+    },
+    {
+      "date": "2025-01-21 00:00:00",
+      "price": 389.1,
+      "portfolio_value": 23811.010000000002,
+      "cash": 75.90999999999985,
+      "shares": 61,
+      "action": "BUY",
+      "confidence": 0.8
+    },
+    {
+      "date": "2025-01-28 00:00:00",
+      "price": 335.93,
+      "portfolio_value": 20567.64,
+      "cash": 75.90999999999985,
+      "shares": 61,
+      "action": "HOLD",
+      "confidence": 0.6
+    },
+    {
+      "date": "2025-02-04 00:00:00",
+      "price": 348.31,
+      "portfolio_value": 21322.82,
+      "cash": 75.90999999999985,
+      "shares": 61,
+      "action": "HOLD",
+      "confidence": 0.7
+    },
+    {
+      "date": "2025-02-11 00:00:00",
+      "price": 319.46,
+      "portfolio_value": 19562.969999999998,
+      "cash": 75.90999999999985,
+      "shares": 61,
+      "action": "HOLD",
+      "confidence": 0.5
+    },
+    {
+      "date": "2025-02-18 00:00:00",
+      "price": 333.97,
+      "portfolio_value": 20448.08,
+      "cash": 75.90999999999985,
+      "shares": 61,
+      "action": "BUY",
+      "confidence": 0.5
+    },
+    {
+      "date": "2025-02-25 00:00:00",
+      "price": 250.51,
+      "portfolio_value": 15357.019999999999,
+      "cash": 75.90999999999985,
+      "shares": 61,
+      "action": "HOLD",
+      "confidence": 0.75
+    },
+    {
+      "date": "2025-03-04 00:00:00",
+      "price": 275.15,
+      "portfolio_value": 16860.059999999998,
+      "cash": 16860.059999999998,
+      "shares": 0,
+      "action": "SELL",
+      "confidence": 0.8
+    },
+    {
+      "date": "2025-03-11 00:00:00",
+      "price": 260.59,
+      "portfolio_value": 16860.059999999998,
+      "cash": 16860.059999999998,
+      "shares": 0,
+      "action": "HOLD",
+      "confidence": 0.5
+    },
+    {
+      "date": "2025-03-18 00:00:00",
+      "price": 283.19,
+      "portfolio_value": 16860.059999999998,
+      "cash": 16860.059999999998,
+      "shares": 0,
+      "action": "HOLD",
+      "confidence": 0.5
+    },
+    {
+      "date": "2025-03-25 00:00:00",
+      "price": 341.81,
+      "portfolio_value": 16860.059999999998,
+      "cash": 16860.059999999998,
+      "shares": 0,
+      "action": "HOLD",
+      "confidence": 0.75
+    },
+    {
+      "date": "2025-04-01 00:00:00",
+      "price": 306.02,
+      "portfolio_value": 16860.059999999998,
+      "cash": 16860.059999999998,
+      "shares": 0,
+      "action": "HOLD",
+      "confidence": 0.5
+    },
+    {
+      "date": "2025-04-08 00:00:00",
+      "price": 237.95,
+      "portfolio_value": 16860.059999999998,
+      "cash": 16860.059999999998,
+      "shares": 0,
+      "action": "SELL",
+      "confidence": 0.8
+    },
+    {
+      "date": "2025-04-15 00:00:00",
+      "price": 310.72,
+      "portfolio_value": 16860.059999999998,
+      "cash": 16860.059999999998,
+      "shares": 0,
+      "action": "HOLD",
+      "confidence": 0.5
+    },
+    {
+      "date": "2025-04-22 00:00:00",
+      "price": 343.03,
+      "portfolio_value": 16860.059999999998,
+      "cash": 51.590000000000146,
+      "shares": 49,
+      "action": "BUY",
+      "confidence": 0.5
+    },
+    {
+      "date": "2025-04-29 00:00:00",
+      "price": 381.45,
+      "portfolio_value": 18742.64,
+      "cash": 51.590000000000146,
+      "shares": 49,
+      "action": "BUY",
+      "confidence": 0.5
+    },
+    {
+      "date": "2025-05-06 00:00:00",
+      "price": 385.6,
+      "portfolio_value": 18945.99,
+      "cash": 51.590000000000146,
+      "shares": 49,
+      "action": "BUY",
+      "confidence": 0.85
+    },
+    {
+      "date": "2025-05-13 00:00:00",
+      "price": 421.61,
+      "portfolio_value": 20710.48,
+      "cash": 51.590000000000146,
+      "shares": 49,
+      "action": "HOLD",
+      "confidence": 0.5
+    },
+    {
+      "date": "2025-05-20 00:00:00",
+      "price": 416.92,
+      "portfolio_value": 20480.670000000002,
+      "cash": 51.590000000000146,
+      "shares": 49,
+      "action": "HOLD",
+      "confidence": 0.5
+    },
+    {
+      "date": "2025-05-27 00:00:00",
+      "price": 372.2,
+      "portfolio_value": 18289.39,
+      "cash": 51.590000000000146,
+      "shares": 49,
+      "action": "HOLD",
+      "confidence": 0.7
+    },
+    {
+      "date": "2025-06-03 00:00:00",
+      "price": 387.43,
+      "portfolio_value": 19035.66,
+      "cash": 51.590000000000146,
+      "shares": 49,
+      "action": "HOLD",
+      "confidence": 0.7
+    },
+    {
+      "date": "2025-06-10 00:00:00",
+      "price": 391.18,
+      "portfolio_value": 19219.41,
+      "cash": 51.590000000000146,
+      "shares": 49,
+      "action": "HOLD",
+      "confidence": 0.5
+    },
+    {
+      "date": "2025-06-17 00:00:00",
+      "price": 375.18,
+      "portfolio_value": 18435.41,
+      "cash": 51.590000000000146,
+      "shares": 49,
+      "action": "HOLD",
+      "confidence": 0.65
+    },
+    {
+      "date": "2025-06-24 00:00:00",
+      "price": 377.02,
+      "portfolio_value": 18525.57,
+      "cash": 51.590000000000146,
+      "shares": 49,
+      "action": "HOLD",
+      "confidence": 0.5
+    },
+    {
+      "date": "2025-07-01 00:00:00",
+      "price": 373.3,
+      "portfolio_value": 18343.29,
+      "cash": 51.590000000000146,
+      "shares": 49,
+      "action": "BUY",
+      "confidence": 0.5
+    },
+    {
+      "date": "2025-07-08 00:00:00",
+      "price": 396.94,
+      "portfolio_value": 19501.65,
+      "cash": 51.590000000000146,
+      "shares": 49,
+      "action": "BUY",
+      "confidence": 0.5
+    },
+    {
+      "date": "2025-07-15 00:00:00",
+      "price": 442.31,
+      "portfolio_value": 21724.78,
+      "cash": 51.590000000000146,
+      "shares": 49,
+      "action": "BUY",
+      "confidence": 0.5
+    },
+    {
+      "date": "2025-07-22 00:00:00",
+      "price": 426.4,
+      "portfolio_value": 20945.19,
+      "cash": 51.590000000000146,
+      "shares": 49,
+      "action": "BUY",
+      "confidence": 0.5
+    },
+    {
+      "date": "2025-07-29 00:00:00",
+      "price": 394.66,
+      "portfolio_value": 19389.93,
+      "cash": 51.590000000000146,
+      "shares": 49,
+      "action": "HOLD",
+      "confidence": 0.7
+    },
+    {
+      "date": "2025-08-05 00:00:00",
+      "price": 375.46,
+      "portfolio_value": 18449.129999999997,
+      "cash": 51.590000000000146,
+      "shares": 49,
+      "action": "HOLD",
+      "confidence": 0.5
+    },
+    {
+      "date": "2025-08-12 00:00:00",
+      "price": 394.39,
+      "portfolio_value": 19376.7,
+      "cash": 51.590000000000146,
+      "shares": 49,
+      "action": "HOLD",
+      "confidence": 0.7
+    },
+    {
+      "date": "2025-08-19 00:00:00",
+      "price": 336.57,
+      "portfolio_value": 16543.52,
+      "cash": 16543.52,
+      "shares": 0,
+      "action": "SELL",
+      "confidence": 0.5
+    },
+    {
+      "date": "2025-08-26 00:00:00",
+      "price": 351.36,
+      "portfolio_value": 16543.52,
+      "cash": 16543.52,
+      "shares": 0,
+      "action": "SELL",
+      "confidence": 0.85
+    },
+    {
+      "date": "2025-09-02 00:00:00",
+      "price": 341.62,
+      "portfolio_value": 16543.52,
+      "cash": 16543.52,
+      "shares": 0,
+      "action": "SELL",
+      "confidence": 0.5
+    }
+  ]
+}

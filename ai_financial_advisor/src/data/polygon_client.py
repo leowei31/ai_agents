@@ -6,11 +6,51 @@ import json
 import requests
 import pandas as pd
 import tempfile
+import time
+import random
 from datetime import datetime, timedelta
 from typing import Dict, Any
 from dotenv import load_dotenv
+from functools import wraps
 
 load_dotenv()
+
+
+def retry_with_backoff(max_retries=3, base_delay=1.0, max_delay=30.0):
+    """
+    Decorator to retry API calls with exponential backoff.
+    """
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            last_exception = None
+            
+            for attempt in range(max_retries + 1):
+                try:
+                    return func(*args, **kwargs)
+                except (requests.exceptions.RequestException, requests.exceptions.Timeout, 
+                        requests.exceptions.ConnectionError, RuntimeError) as e:
+                    last_exception = e
+                    
+                    # Don't retry on the last attempt
+                    if attempt == max_retries:
+                        break
+                    
+                    # Calculate delay with exponential backoff and jitter
+                    delay = min(base_delay * (2 ** attempt), max_delay)
+                    jitter = random.uniform(0.1, 0.3) * delay
+                    total_delay = delay + jitter
+                    
+                    print(f"⚠️  API request failed (attempt {attempt + 1}/{max_retries + 1}): {e}")
+                    print(f"🔄 Retrying in {total_delay:.1f} seconds...")
+                    time.sleep(total_delay)
+            
+            # If we get here, all retries failed
+            print(f"❌ All retry attempts failed. Last error: {last_exception}")
+            raise last_exception
+        
+        return wrapper
+    return decorator
 
 
 class PolygonClient:
@@ -21,19 +61,58 @@ class PolygonClient:
         if not self.api_key:
             raise ValueError('POLYGON_API_KEY not set')
         self.base_url = 'https://api.polygon.io'
+        self._last_request_time = 0
+        self._min_request_interval = 0.1  # 100ms between requests for rate limiting
     
     def _make_request(self, url: str, params: dict = None) -> dict:
-        """Make API request with error handling."""
+        """Make API request with error handling and rate limiting."""
+        # Rate limiting: ensure minimum interval between requests
+        current_time = time.time()
+        time_since_last = current_time - self._last_request_time
+        if time_since_last < self._min_request_interval:
+            sleep_time = self._min_request_interval - time_since_last
+            time.sleep(sleep_time)
+        
         if params is None:
             params = {}
         params['apikey'] = self.api_key
-        r = requests.get(url, params=params, timeout=30)
-        r.raise_for_status()
-        data = r.json()
         
-        if data.get('status') == 'ERROR':
-            raise RuntimeError(f"Polygon.io API error: {data.get('error', 'Unknown error')}")
-        return data
+        try:
+            r = requests.get(url, params=params, timeout=30)
+            self._last_request_time = time.time()
+            r.raise_for_status()
+            data = r.json()
+            
+            # Check for various error conditions
+            if data.get('status') == 'ERROR':
+                error_msg = data.get('error', 'Unknown error')
+                raise RuntimeError(f"Polygon.io API error: {error_msg}")
+            
+            # Check for rate limit indicators
+            if data.get('status') == 'NOT_AUTHORIZED':
+                raise RuntimeError(f"Polygon.io authentication error: Check API key")
+            
+            # Check for quota exceeded
+            if 'rate limit' in str(data).lower() or 'quota' in str(data).lower():
+                raise RuntimeError(f"Polygon.io rate limit exceeded")
+            
+            return data
+            
+        except requests.exceptions.Timeout:
+            raise RuntimeError(f"Request timeout after 30 seconds: {url}")
+        except requests.exceptions.ConnectionError as e:
+            raise RuntimeError(f"Connection error: {e}")
+        except requests.exceptions.HTTPError as e:
+            if e.response.status_code == 429:
+                raise RuntimeError(f"Rate limit exceeded (HTTP 429)")
+            elif e.response.status_code == 401:
+                raise RuntimeError(f"Unauthorized (HTTP 401): Check API key")
+            elif e.response.status_code == 403:
+                raise RuntimeError(f"Forbidden (HTTP 403): API quota exceeded or invalid permissions")
+            else:
+                raise RuntimeError(f"HTTP error {e.response.status_code}: {e}")
+        except json.JSONDecodeError:
+            raise RuntimeError(f"Invalid JSON response from API")
     
     def _sanitize_ticker(self, ticker: str) -> str:
         """Sanitize ticker for filename use."""
@@ -204,9 +283,10 @@ class PolygonClient:
         data = self._make_request(url, params)
         return self._polygon_to_df(data)
     
+    @retry_with_backoff(max_retries=3, base_delay=1.0, max_delay=10.0)
     def fetch_news(self, ticker: str, limit: int = 10) -> list:
         """
-        Fetch recent news for a ticker using Polygon.io.
+        Fetch recent news for a ticker using Polygon.io with retry logic.
         
         Returns:
             List of news articles with title, publisher, link, time
@@ -220,20 +300,52 @@ class PolygonClient:
         
         try:
             data = self._make_request(url, params)
-        except Exception:
-            return []
-        
-        results = data.get('results', []) or []
-        items = []
-        
-        for n in results[:limit]:
-            publisher = n.get('publisher', {}).get('name', '') or ''
             
-            items.append({
-                'title': n.get('title', ''),
-                'publisher': publisher,
-                'link': n.get('article_url', ''),
-                'time': n.get('published_utc', '')
-            })
-        
-        return items
+            # Validate response structure
+            if not isinstance(data, dict):
+                print(f"⚠️  Invalid response format for news API: {type(data)}")
+                return []
+            
+            results = data.get('results', [])
+            if results is None:
+                print(f"⚠️  No results field in news API response")
+                return []
+            
+            if not isinstance(results, list):
+                print(f"⚠️  Results field is not a list: {type(results)}")
+                return []
+            
+            items = []
+            for n in results[:limit]:
+                if not isinstance(n, dict):
+                    print(f"⚠️  Skipping invalid news item: {type(n)}")
+                    continue
+                
+                # Safely extract publisher name
+                publisher_data = n.get('publisher', {})
+                if isinstance(publisher_data, dict):
+                    publisher = publisher_data.get('name', '') or ''
+                else:
+                    publisher = ''
+                
+                # Validate required fields exist
+                title = n.get('title', '') or ''
+                link = n.get('article_url', '') or ''
+                time = n.get('published_utc', '') or ''
+                
+                # Only add if we have at least title and link
+                if title and link:
+                    items.append({
+                        'title': title,
+                        'publisher': publisher,
+                        'link': link,
+                        'time': time
+                    })
+            
+            print(f"✅ Successfully fetched {len(items)} news articles for {ticker}")
+            return items
+            
+        except Exception as e:
+            print(f"❌ Failed to fetch news for {ticker}: {e}")
+            # Re-raise the exception to trigger retry logic
+            raise

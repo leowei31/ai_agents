@@ -3,6 +3,8 @@ Analysis and visualization script for backtest results.
 """
 import json
 import pandas as pd
+import matplotlib
+matplotlib.use('Agg')  # Use non-GUI backend to avoid threading issues
 import matplotlib.pyplot as plt
 from datetime import datetime
 import numpy as np
@@ -152,7 +154,7 @@ def create_performance_chart(results: dict, save_path: str = 'backtest_performan
     
     plt.tight_layout()
     plt.savefig(save_path, dpi=300, bbox_inches='tight')
-    plt.show()
+    plt.close()  # Close the figure instead of showing it
     print(f"📊 Performance chart saved to {save_path}")
 
 def print_detailed_analysis(results: dict, metrics: dict):

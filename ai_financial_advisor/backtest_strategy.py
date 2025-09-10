@@ -97,12 +97,41 @@ class StrategyBacktester:
         
         print(f"📊 Analysis data for {target_date.strftime('%Y-%m-%d')}: {len(available_data)} days ({available_data.index[0].strftime('%Y-%m-%d')} to {available_data.index[-1].strftime('%Y-%m-%d')})")
         
-        # Save to temporary file for the crew to analyze
+        # Save to temporary file for the crew to analyze with proper error handling
         temp_dir = tempfile.gettempdir()
         temp_file = os.path.join(temp_dir, f"backtest_{ticker}_{target_date.strftime('%Y%m%d')}.csv")
-        available_data.to_csv(temp_file)
         
-        return temp_file
+        # Ensure directory exists
+        os.makedirs(temp_dir, exist_ok=True)
+        
+        # Write CSV with error handling and validation
+        try:
+            available_data.to_csv(temp_file, index=True)
+            
+            # Verify file was written successfully
+            if not os.path.exists(temp_file) or os.path.getsize(temp_file) == 0:
+                raise ValueError(f"Failed to write CSV file or file is empty: {temp_file}")
+            
+            # Brief pause to ensure file system sync on Windows
+            import time
+            time.sleep(0.01)
+            
+            return temp_file
+            
+        except Exception as e:
+            print(f"❌ Failed to create temporary CSV file: {e}")
+            # Try alternative temp file name
+            import uuid
+            alt_temp_file = os.path.join(temp_dir, f"backtest_{ticker}_{uuid.uuid4().hex[:8]}.csv")
+            try:
+                available_data.to_csv(alt_temp_file, index=True)
+                if os.path.exists(alt_temp_file) and os.path.getsize(alt_temp_file) > 0:
+                    print(f"✅ Created alternative temp file: {alt_temp_file}")
+                    return alt_temp_file
+            except Exception as e2:
+                print(f"❌ Alternative temp file creation also failed: {e2}")
+            
+            raise ValueError(f"Could not create temporary CSV file for analysis: {e}")
     
     def run_strategy_analysis(self, ticker: str, analysis_date: datetime) -> Dict[str, Any]:
         """

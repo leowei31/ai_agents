@@ -51,6 +51,6 @@ def create_portfolio_manager() -> Agent:
         goal="Integrate data/signals/risk and decide: BUY/SELL/HOLD for {ticker} now, with confidence.",
         backstory="Accountable decision-maker who weighs conflicting evidence and avoids bravado.",
         tools=[],
-        allow_delegation=True,
+        allow_delegation=False,
         verbose=True,
     )

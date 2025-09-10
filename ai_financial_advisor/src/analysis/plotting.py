@@ -2,6 +2,8 @@
 Plotting functions for technical analysis.
 """
 import os
+import matplotlib
+matplotlib.use('Agg')  # Use non-GUI backend to avoid threading issues
 import matplotlib.pyplot as plt
 import pandas as pd
 from .indicators import ema, bollinger
