@@ -4,7 +4,11 @@
       "Bash(mkdir:*)",
       "WebSearch",
       "WebFetch(domain:polygon.io)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(git worktree:*)",
+      "Bash(git merge:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []
