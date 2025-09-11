@@ -1,0 +1,7 @@
+crewai
+crewai[tools]
+pandas
+python-dotenv
+requests
+beautifulsoup4
+lxml
